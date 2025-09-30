@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles; // <-- AÑADIDO: Importar el Trait de Spatie
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles; // <-- AÑADIDO: Activar Roles y Permisos
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +22,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // ESTA ES LA LÍNEA AÑADIDA PARA LOS ROLES
+        'role', // (Dejado por si lo necesitas, aunque Spatie lo gestiona)
+        
+        // <-- AÑADIDO: Claves de Aislamiento (SaaS) -->
+        'empresa_id', 
+        'planta_id',
+        // <------------------------------------------->
     ];
 
     /**
