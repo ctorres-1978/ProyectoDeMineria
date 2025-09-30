@@ -15,15 +15,40 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    
+                    <!-- ACCESO AL SISTEMA HOME -->
+                    <x-nav-link :href="route('system.home')" :active="request()->routeIs('system.home')">
+                        {{ __('Inicio del Sistema') }}
+                    </x-nav-link>
+                    
+                    {{-- ========================================================= --}}
+                    {{-- MÓDULO DE OPERACIONES (Reporte Diario) --}}
+                    {{-- Visible para Operario, Supervisor, Gerente y Admin (report_diario) --}}
+                    {{-- ========================================================= --}}
+                    @can('report_diario')
+                        <x-nav-link :href="route('reportes.index')" :active="request()->routeIs('reportes.*')">
+                            {{ __('Módulo Operaciones') }}
+                        </x-nav-link>
+                    @endcan
+                    
+                    {{-- ========================================================= --}}
+                    {{-- MÓDULO DE ADMINISTRACIÓN (Crear Usuarios) --}}
+                    {{-- Visible solo para Gerente y Admin (manage_users) --}}
+                    {{-- ========================================================= --}}
+                    @can('manage_users')
+                        <x-nav-link :href="route('user.create')" :active="request()->routeIs('user.create')">
+                            {{ __('Administrar Usuarios') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
+            <!-- Settings Dropdown (Menú de Usuario) -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>{{ Auth::user()->name }} ({{ Auth::user()->planta->nombre ?? 'N/A' }})</div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -70,6 +95,25 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+             <!-- ACCESO AL SISTEMA HOME (Responsive) -->
+            <x-responsive-nav-link :href="route('system.home')" :active="request()->routeIs('system.home')">
+                {{ __('Inicio del Sistema') }}
+            </x-responsive-nav-link>
+
+            {{-- MÓDULO DE OPERACIONES (Responsive) --}}
+            @can('report_diario')
+                <x-responsive-nav-link :href="route('reportes.index')" :active="request()->routeIs('reportes.*')">
+                    {{ __('Módulo Operaciones') }}
+                </x-responsive-nav-link>
+            @endcan
+            
+            {{-- MÓDULO DE ADMINISTRACIÓN (Responsive) --}}
+            @can('manage_users')
+                <x-responsive-nav-link :href="route('user.create')" :active="request()->routeIs('user.create')">
+                    {{ __('Administrar Usuarios') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
