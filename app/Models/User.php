@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // ESTA ES LA LÍNEA AÑADIDA PARA LOS ROLES
     ];
 
     /**

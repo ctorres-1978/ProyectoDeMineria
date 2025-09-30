@@ -7,6 +7,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
@@ -27,7 +29,12 @@
             border-radius: 16px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            width: 400px;
+            
+            /* INICIO DE LA CORRECCIÓN: Aumentamos el ancho para que el formulario entre bien */
+            width: 500px; 
+            max-width: 90%; 
+            /* FIN DE LA CORRECCIÓN */
+
             height: auto;
             margin: 20px auto;
             border: 1px solid #dcdcdc;
@@ -55,7 +62,7 @@
 <body class="font-sans text-gray-900 antialiased">
     <div class="container-elegante">
         <div class="header-elegante">
-            <h2>{{ __('Panel de Control') }}</h2>
+            <h2>{{ __('Crear Usuario') }}</h2>
         </div>
         {{ $slot }}
     </div>
